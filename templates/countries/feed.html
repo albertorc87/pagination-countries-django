@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Countries list</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+    * {
+        font-family: "Roboto", Arial;
+    }
+    .main {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .table-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 3fr;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        margin-bottom: 1rem;
+        text-align: left;
+    }
+
+    .table-grid > span {
+        padding: 8px 4px;
+        border-left: 1px solid black;
+        border-bottom: 1px solid black;
+    }
+    a {
+        text-decoration: none;
+        color: #009FD2;
+    }
+    a:hover {
+        text-decoration: underline;
+        color: #0082AC;
+    }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="table-grid">
+            <span>
+                <strong>Id</strong>
+            </span>
+            <span>
+                <strong>Iso code</strong>
+            </span>
+            <span>
+                <strong>Country name</strong>
+            </span>
+        {% for country in countries %}
+            <span>
+                {{country.id}}
+            </span>
+            <span>
+                {{country.iso_code}}
+            </span>
+            <span>
+                {{country.name}}
+            </span>
+        {% endfor %}
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+</html>
